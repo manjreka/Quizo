@@ -3,13 +3,14 @@
 ## Project Overview
 This is a web-based Quiz Management System designed to help teachers create, manage, and view quizzes efficiently. The platform allows teachers to log in, create quizzes, edit quizzes, and delete them with ease.
 
-### Features and Functionalities:
-- **User Authentication:** Static login credentials for teacher authentication.
-- **Quiz Management:** Teachers can create, edit, and delete quizzes.
-- **Dashboard:** A centralized view of all quizzes created by the logged-in teacher.
-- **Responsive Design:** The application is optimized for both mobile and desktop users.
+### Features and Functionalities
+- **User Authentication**: Static login credentials for teacher authentication.
+- **Quiz Management**: Teachers can create, edit, and delete quizzes.
+- **Dashboard**: A centralized view of all quizzes created by the logged-in teacher.
+- **Responsive Design**: The application is optimized for both mobile and desktop users.
 
 ## Technologies Used
+
 ### Frontend:
 - **React** - For building the user interface.
 - **ShadCN UI** - For modern and responsive UI components.
@@ -19,7 +20,9 @@ This is a web-based Quiz Management System designed to help teachers create, man
 - **Node.js & Express.js** - For handling API requests and business logic.
 - **MySQL** - To store user credentials and quiz details.
 
-## Folder Structure - backend
+## Folder Structure
+
+### Backend
 ```
 📂 middleware
  ├── auth.js
@@ -32,9 +35,9 @@ db.js
 index.js
 package.json
 package-lock.json
-
 ```
-## Folder Structure - UI
+
+### UI
 ```
 📂 public
 📂 src
@@ -50,6 +53,7 @@ vite.config.js
 ```
 
 ## Setup & Installation
+
 ### Prerequisites
 Ensure you have the following installed:
 - **Node.js** (Latest version)
@@ -66,17 +70,18 @@ Ensure you have the following installed:
    ```
 
 ### Start the Project
-- **Backend**
-  ```sh
-  nodemon app.js
-  ```
-- **Frontend**
-  ```sh
-  npm run dev
-  ```
+#### Backend
+```sh
+nodemon app.js
+```
+#### Frontend
+```sh
+npm run dev
+```
 
-### Dependencies Used
-#### Frontend:
+## Dependencies Used
+
+### Frontend
 - lucide-react: ^0.475.0
 - react-hook-form: ^7.54.2
 - react-router-dom: ^7.1.5
@@ -84,7 +89,7 @@ Ensure you have the following installed:
 - tailwindcss-animate: ^1.0.7
 - zod: ^3.24.2
 
-#### Backend:
+### Backend
 - bcrypt: ^5.1.1
 - body-parser: ^1.20.3
 - cookie-parser: ^1.4.7
@@ -96,134 +101,146 @@ Ensure you have the following installed:
 - mysql2: ^3.12.0
 - nodemon: ^3.1.9
 
-Environment Variables
-Create a .env file in the root directory and add the following variables:
+## Environment Variables
+Create a `.env` file in the root directory and add the following variables:
+```ini
 DB_HOST=localhost
 DB_USER=root
 DB_PASS=6dg7AXD?F/)XnjV
 DB_NAME=quizApp
-PORT = 5000
+PORT=5000
+```
 
-
-Authentication Details
+## Authentication Details
+```
 Username: teacher2
 Password: Teach@456
+```
 
+## API Endpoints
 
-API Endpoints
-
-Get all quizzes (Protected Route)
-Request:
-Method: GET
-Endpoint: /getQuiz
+### Get all quizzes (Protected Route)
+#### Request:
+```http
+GET /getQuiz
 Headers: { Cookie: session_id }
+```
+#### Response:
+```json
+{
+  "status": 200,
+  "message": "Success",
+  "data": [ ...quizzes ]
+}
+```
 
-Response:
-Success: 200 OK, returns quizzes list
-Error: 401 Unauthorized - User not authenticated
-Error: 500 Internal Server Error - Database query failed
-
-Get a single quiz by ID (Protected Route)
-Request:
-Method: GET
-Endpoint: /getQuiz/:id
+### Get a single quiz by ID (Protected Route)
+#### Request:
+```http
+GET /getQuiz/:id
 Headers: { Cookie: session_id }
+```
+#### Response:
+```json
+{
+  "status": 200,
+  "message": "Success",
+  "data": { "id": 1, "title": "Quiz 1", "description": "Sample" }
+}
+```
 
-Response:
-Success: 200 OK, returns quiz details
-Error: 401 Unauthorized - User not authenticated
-Error: 404 Not Found - Quiz not found
-Error: 500 Internal Server Error - Database query failed
-
-Create a quiz (Protected Route)
-Request:
-Method: POST
-Endpoint: /create
+### Create a quiz (Protected Route)
+#### Request:
+```http
+POST /create
 Headers: { Cookie: session_id, Content-Type: application/json }
-Body: { title: string, description: string }
+Body: { "title": "New Quiz", "description": "Details" }
+```
+#### Response:
+```json
+{
+  "status": 201,
+  "message": "Quiz created successfully",
+  "quizId": 10
+}
+```
 
-Response:
-Success: 201 Created, { message: "Quiz created successfully", quizId }
-Error: 401 Unauthorized - User not authenticated
-Error: 500 Internal Server Error - Database insert failed
-
-Edit a quiz (Protected Route)
-Request:
-Method: PUT
-Endpoint: /edit/:id
+### Edit a quiz (Protected Route)
+#### Request:
+```http
+PUT /edit/:id
 Headers: { Cookie: session_id, Content-Type: application/json }
-Body: { title: string, description: string }
+Body: { "title": "Updated Title", "description": "Updated Details" }
+```
+#### Response:
+```json
+{
+  "status": 200,
+  "message": "Quiz updated successfully"
+}
+```
 
-Response:
-Success: 200 OK, { message: "Quiz updated successfully" }
-Error: 401 Unauthorized - User not authenticated
-Error: 404 Not Found - Quiz not found or unauthorized
-Error: 500 Internal Server Error - Database update failed
-
-Delete a quiz (Protected Route)
-Request:
-Method: DELETE
-Endpoint: /delete/:id
+### Delete a quiz (Protected Route)
+#### Request:
+```http
+DELETE /delete/:id
 Headers: { Cookie: session_id }
+```
+#### Response:
+```json
+{
+  "status": 200,
+  "message": "Quiz deleted successfully"
+}
+```
 
-Response:
-Success: 200 OK, { message: "Quiz deleted successfully" }
-Error: 401 Unauthorized - User not authenticated
-Error: 404 Not Found - Quiz not found or unauthorized
-Error: 500 Internal Server Error - Database delete failed
+### Logout
+#### Request:
+```http
+GET /logout
+```
+#### Response:
+```json
+{
+  "status": 200,
+  "message": "Logged out successfully"
+}
+```
 
-Logout
-Request:
-Method: GET
-Endpoint: /logout
+## Usage Guide
 
-Response:
-Success: 200 OK, { message: "Logged out successfully" }
-Error: 500 Internal Server Error - Logout process failed
-
-### Usage Guide (How to Use the Application)  
-
-1. Login  
+1. **Login**  
    - Use the provided credentials to log in.  
    - Upon successful login, you’ll be redirected to the Dashboard.  
 
-2. Dashboard  
+2. **Dashboard**  
    - Displays a list of quizzes using a ShadCN data table.  
    - Each quiz has an ellipsis (`⋮`) menu with options to View, Edit, or Delete.  
    - A "Create Quiz" button allows users to add a new quiz.  
 
-3. Creating a Quiz  
+3. **Creating a Quiz**  
    - Click "Create Quiz," and a ShadCN form will open.  
    - Enter the Title and Description.  
    - Click CREATE to save the quiz.  
    - On success, a toast notification appears, and the user is redirected to the Dashboard, where the new quiz is listed.  
 
-4. Editing a Quiz  
+4. **Editing a Quiz**  
    - Click the ellipsis (`⋮`) menu on a quiz and select Edit.  
    - Modify the Title or Description.  
    - Click UPDATE, and a success or error toast appears based on the response.  
 
-5. Deleting a Quiz  
+5. **Deleting a Quiz**  
    - Click the ellipsis (`⋮`) menu on a quiz and select Delete.  
    - A toast notification confirms deletion, and the list updates automatically.  
 
-6. Viewing a Quiz  
+6. **Viewing a Quiz**  
    - Click View in the ellipsis (`⋮`) menu.  
    - The quiz details, including Title, Description, Date, and Time, are displayed using a ShadCN view table.  
 
-Technologies Used for UI  
-   1. ShadCN Data Table – For displaying quizzes.  
-   2. ShadCN Form – For quiz creation and editing.  
-   3. ShadCN Toast – For success or error messages.  
+## Technologies Used for UI
+1. ShadCN Data Table – For displaying quizzes.  
+2. ShadCN Form – For quiz creation and editing.  
+3. ShadCN Toast – For success or error messages.  
 
-This guide helps you navigate and use the application efficiently after setup. Let me know if you need modifications.
-
-
-
-
-
-
-
-
-
+This guide helps you navigate and use the application efficiently after setup.
 
