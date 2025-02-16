@@ -239,8 +239,9 @@ GET /logout
 
 ## Technologies Used for UI
 1. ShadCN Data Table – For displaying quizzes.  
-2. ShadCN Form – For quiz creation and editing.  
-3. ShadCN Toast – For success or error messages.  
+2. ShadCN Form – For quiz creation, editing and login.  
+3. ShadCN Toast – For success or error messages.
+4. ShadCn Button etc  
 
 This guide helps you navigate and use the application efficiently after setup.
 
